@@ -1,15 +1,15 @@
 # notify
 
-An Ansible collection that posts webhook notifications (Discord/Slack-compatible) for deployment events.
+An Ansible collection of per-service roles for posting deployment notifications.
 
 ## Scope
 
-This collection holds a single role, `notify`, extracted out of [Nomadintosh](https://github.com/anultravioletaurora/Nomadintosh) so it can be shared without duplicating it into [Nomaduntu](https://github.com/anultravioletaurora/nomaduntu) too. It has no playbook of its own — consumers `include_role`/`import_role` it by its fully-qualified name from their own playbooks.
+One role per notification service — `discord` today, with room to add `slack`/`telegram`/`matrix`/etc. as needed. Extracted out of [Nomadintosh](https://github.com/anultravioletaurora/Nomadintosh)'s generic `notify` role so it can be shared without duplicating it into [Nomaduntu](https://github.com/anultravioletaurora/nomaduntu) too. It has no playbook of its own — consumers `include_role`/`import_role` a role by its fully-qualified name from their own playbooks.
 
 ## Requirements
 
 - Ansible 2.15+
-- No external collection dependencies — the role only uses `ansible.builtin` modules.
+- No external collection dependencies — every role only uses `ansible.builtin` modules.
 
 ## Installation
 
@@ -28,15 +28,17 @@ collections:
 ## Usage
 
 ```yaml
-- name: Send notification
+- name: Send Discord notification
   ansible.builtin.include_role:
-    name: cosmonautical.notify.notify
+    name: cosmonautical.notify.discord
   vars:
-    notify_webhook_message: "Deployment completed on {{ inventory_hostname }}."
-    notifications: "{{ my_notifications_vault_var }}"
+    discord_message: "Deployment completed on {{ inventory_hostname }}."
+    discord_webhooks: "{{ my_discord_webhooks_vault_var }}"
 ```
 
-See [`roles/notify/README.md`](roles/notify/README.md) for the full variable reference.
+See each role's own README for its full variable reference:
+
+- [`roles/discord/README.md`](roles/discord/README.md)
 
 ## Consumers
 

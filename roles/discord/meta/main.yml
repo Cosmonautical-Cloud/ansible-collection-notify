@@ -1,0 +1,6 @@
+---
+galaxy_info:
+  author: Violet Caulfield
+  description: Posts a Discord webhook notification. Shared by Nomadintosh and Nomaduntu to send status updates on deployment events.
+  license: GPL-3.0-only
+dependencies: []
