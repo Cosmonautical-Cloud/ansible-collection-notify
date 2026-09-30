@@ -14,6 +14,7 @@ POSTs a JSON payload to every URL in the `discord_webhooks` list, in [Discord's 
 | `discord_message` | Yes | — | The message string to send. |
 | `discord_username` | No | `"Ansible"` | Display name shown alongside the message. |
 | `discord_body` | No | `{content, username}` | Override the entire POST body — e.g. to send embeds instead of a plain `content` string. |
+| `discord_webhook_expected_status` | No | `[200, 204]` | HTTP status codes treated as a successful POST. |
 
 ## Usage
 
