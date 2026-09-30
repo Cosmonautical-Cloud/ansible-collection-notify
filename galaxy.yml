@@ -1,0 +1,21 @@
+---
+namespace: cosmonautical
+name: notify
+authors:
+  - Violet Caulfield
+version: 0.0.1
+readme: README.md
+description: An Ansible collection that posts webhook notifications (Discord/Slack-compatible) for deployment events, shared across Nomadintosh and Nomaduntu.
+license:
+  - GPL-3.0-only
+tags:
+  - notifications
+  - webhook
+  - discord
+  - slack
+  - homelab
+  - hashicorp
+repository: https://github.com/Cosmonautical-Cloud/ansible-collection-notify
+homepage: https://github.com/Cosmonautical-Cloud/ansible-collection-notify
+issues: https://github.com/Cosmonautical-Cloud/ansible-collection-notify/issues
+dependencies: {}
