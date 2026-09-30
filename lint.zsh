@@ -1,4 +1,4 @@
 #! /bin/zsh
 
-# This script is used to lint the notify role using ansible-lint.
-ansible-lint roles/notify
+# This script is used to lint the collection's modules using ansible-lint.
+ansible-lint plugins/modules

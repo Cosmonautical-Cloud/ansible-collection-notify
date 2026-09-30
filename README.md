@@ -1,15 +1,15 @@
 # notify
 
-An Ansible collection of per-service roles for posting deployment notifications.
+An Ansible collection of per-service modules for posting deployment notifications.
 
 ## Scope
 
-One role per notification service — `discord` today, with room to add `slack`/`telegram`/`matrix`/etc. as needed. Extracted out of [Nomadintosh](https://github.com/anultravioletaurora/Nomadintosh)'s generic `notify` role so it can be shared without duplicating it into [Nomaduntu](https://github.com/anultravioletaurora/nomaduntu) too. It has no playbook of its own — consumers `include_role`/`import_role` a role by its fully-qualified name from their own playbooks.
+One module per notification service — `discord` today, with room to add `slack`/`telegram`/`matrix`/etc. as needed. Extracted out of [Nomadintosh](https://github.com/anultravioletaurora/Nomadintosh)'s generic `notify` role so it can be shared without duplicating it into [Nomaduntu](https://github.com/anultravioletaurora/nomaduntu) too.
 
 ## Requirements
 
 - Ansible 2.15+
-- No external collection dependencies — every role only uses `ansible.builtin` modules.
+- No external collection dependencies — every module only uses `ansible.module_utils` from `ansible-core`.
 
 ## Installation
 
@@ -28,17 +28,28 @@ collections:
 ## Usage
 
 ```yaml
-- name: Send Discord notification
-  ansible.builtin.include_role:
-    name: cosmonautical.notify.discord
-  vars:
-    discord_message: "Deployment completed on {{ inventory_hostname }}."
-    discord_webhooks: "{{ my_discord_webhooks_vault_var }}"
+- name: Send a Discord notification
+  cosmonautical.notify.discord:
+    id: "{{ discord_webhook_id }}"
+    token: "{{ discord_webhook_token }}"
+    message: "Deployment completed on {{ inventory_hostname }}."
+  no_log: true
 ```
 
-See each role's own README for its full variable reference:
+Send to a vaulted list of webhooks with `loop:`:
 
-- [`roles/discord/README.md`](roles/discord/README.md)
+```yaml
+- name: Send to every webhook in a vaulted list
+  cosmonautical.notify.discord:
+    id: "{{ item.id }}"
+    token: "{{ item.token }}"
+    message: "Deployment completed on {{ inventory_hostname }}."
+  loop: "{{ discord_webhooks }}"
+  delegate_to: localhost
+  no_log: true
+```
+
+See each module's own documentation for its full option reference (`ansible-doc cosmonautical.notify.discord`), or [`plugins/modules/discord.py`](plugins/modules/discord.py).
 
 ## Consumers
 
